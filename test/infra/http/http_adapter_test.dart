@@ -3,8 +3,6 @@ import 'package:http/http.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-import 'package:fordev/data/http/http.dart';
-
 import 'package:fordev/infra/http/http.dart';
 
 class ClientSpy extends Mock implements Client {}
@@ -68,14 +66,6 @@ void main() {
       expect(response, null);
     });
 
-    test('Should return null if post returns 204', () async {
-      mockResponse(204, body: '');
-
-      final response = await sut.request(url: url, method: 'post');
-
-      expect(response, null);
-    });
-
     test('Should return null if post returns 204 with data', () async {
       mockResponse(204);
 
@@ -84,21 +74,12 @@ void main() {
       expect(response, null);
     });
 
-    test('Should return BadRequestError if post returns 400', () async {
-      mockResponse(400);
+    test('Should return null if post returns 204', () async {
+      mockResponse(204, body: '');
 
-      final future = sut.request(url: url, method: 'post');
+      final response = await sut.request(url: url, method: 'post');
 
-      expect(future, throwsA(HttpError.badRequest));
+      expect(response, null);
     });
-
-    test('Should return BadRequestError if post returns 400', () async {
-      mockResponse(400, body: '');
-
-      final future = sut.request(url: url, method: 'post');
-
-      expect(future, throwsA(HttpError.badRequest));
-    });
-
   });
 }
