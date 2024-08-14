@@ -49,4 +49,10 @@ void main() {
     await tester.enterText(find.bySemanticsLabel('Senha'), password);
     verify(presenter.validatePassword(password));
   });
+
+  testWidgets('Should call validate with correct values', (WidgetTester tester) async {
+    await loadPage(tester);
+
+
+  });
 }
